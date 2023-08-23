@@ -1,0 +1,96 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Your result Table</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: center;
+        }
+
+        tr {
+            border-bottom: 1px solid black;
+        }
+
+        .filter {
+            margin-bottom: 10px;
+        }
+
+        .filter select {
+            padding: 5px;
+            font-size: 16px;
+            border-radius: 5px;
+        }
+	 thead {
+            background-color:rgba(236, 234, 231, 0.842)
+        }
+    </style>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#risk-filter').change(function() {
+                var selectedRisk = $(this).val();
+                $('table tbody tr').each(function() {
+                    var risk = $(this).find('td:eq(0)').text();
+                    if (selectedRisk === 'all' || selectedRisk === risk) {
+                        $(this).show();
+                    } else {
+                        $(this).hide();
+                    }
+                });
+            });
+        });
+    </script>
+</head>
+
+<body>
+    
+    <div class="filter">
+        <label for="risk-filter">Filter by risk:</label>
+        <select id="risk-filter">
+            <option value="all">All</option>
+            <option value="High">High</option>
+            <option value="Medium">Medium</option>
+            <option value="Low">Low</option>
+            <option value="Informational">Informational</option>
+        </select>
+    </div>
+
+    <table>
+        <thead class = thead>
+            <tr>
+                <th>risk</th>
+                <th>url</th>
+                <th>pluginId</th>
+                <th>alert</th>
+                <th>description</th>
+                <th>solution</th>
+		<th>steps</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for key,value in data.items() %}
+            <tr>
+                <td>{{ value.risk }}</td>
+                <td>{{ value.url }}</td>
+                <td>{{ value.pluginId }}</td>
+                <td>{{ value.alert }}</td>
+                <td>{{ value.description }}</td>
+                <td>{% if value.solution == "" %}no solution advised{% else %}{{ value.solution }}{% endif %}</td>
+		<td><a href="/chatgpt_chat?message=detail steps to solve {{value.alert}}">steps to solve {{value.alert}}</a>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+ 
+</body>
+
+</html>
+

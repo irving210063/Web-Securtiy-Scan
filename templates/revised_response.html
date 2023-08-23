@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Revised Response</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+    }
+
+    h1 {
+      text-align: center;
+      color: #333;
+      margin-bottom: 20px;
+    }
+
+    .step {
+      border: 1px solid #000;
+      width: 100%;
+    }
+
+    .step-description {
+      font-size: 20px;
+      
+    }
+  </style>
+</head>
+<body>
+  <h1>Revised code</h1>
+  <div class="steps-container">
+    {% for steps in answer_list %}
+      {% if steps %}
+        <div>
+          <div class="step-description"><pre>{{ steps }}</pre></div>
+        </div>
+      {% endif %}
+    {% endfor %}
+  </div>
+</body>
+</html>
+

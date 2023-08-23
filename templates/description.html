@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Description of Vulnerability</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+      width:100%;
+    }
+
+    h1 {
+      text-align: center;
+      color: #333;
+      margin-bottom: 20px;
+    }
+
+    .step {
+      border: 1px solid #000;
+      width: 100%;
+    }
+
+    .step-description {
+      font-size: 20px;
+      width:100%;
+      
+    }
+  </style>
+</head>
+<body>
+  <h1>Vulnerability Description</h1>
+  <div class="step-description">
+    <pre>{{description}}</pre>
+  </div>
+  <br>
+  <h1>Steps to solve it</h1>
+  <div class="steps-container">
+    {% for steps in answer_list %}
+      {% if steps %}
+        <div>
+          <div class="step-description"><pre>{{ steps }}</pre></div>
+        </div>
+      {% endif %}
+    {% endfor %}
+  </div>
+</body>
+</html>
+

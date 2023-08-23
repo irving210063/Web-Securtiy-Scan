@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="refresh" content="1">
+    <title>Please Wait...</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f9f9f9;
+        text-align: center;
+      }
+      h1 {
+        margin-top: 50px;
+        font-size: 36px;
+        font-weight: bold;
+        color: #555;
+      }
+      .spinner {
+        margin-top: 30px;
+        display: inline-block;
+        width: 64px;
+        height: 64px;
+        position: relative;
+        animation: rotate 2s linear infinite;
+      }
+      .spinner .dot {
+        position: absolute;
+        width: 16px;
+        height: 16px;
+        border-radius: 50%;
+        background-color: #555;
+        animation: pulse 2s ease-in-out infinite;
+      }
+      .spinner .dot:nth-child(1) {
+        top: 0;
+        left: 50%;
+        margin-left: -8px;
+      }
+      .spinner .dot:nth-child(2) {
+        top: 50%;
+        left: 100%;
+        margin-top: -8px;
+      }
+      .spinner .dot:nth-child(3) {
+        top: 100%;
+        left: 50%;
+        margin-left: -8px;
+      }
+      .spinner .dot:nth-child(4) {
+        top: 50%;
+        left: 0;
+        margin-top: -8px;
+      }
+      @keyframes rotate {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+      @keyframes pulse {
+        0% {
+          transform: scale(1);
+          opacity: 1;
+        }
+        50% {
+          transform: scale(2);
+          opacity: 0.5;
+        }
+        100% {
+          transform: scale(1);
+          opacity: 1;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Please Wait The form is generating</h1>
+    <div class="spinner">
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+    </div>
+  </body>
+</html>
+

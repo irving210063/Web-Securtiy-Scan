@@ -1,0 +1,34 @@
+####app5.py#####
+
+can let URL contain slash 
+
+
+###app6.py#####
+
+can view response 
+
+integrate description and chatgpt answer into a page 
+
+
+###app7.py#####
+
+provide revised code of vulnerable response
+
+-- 2023/6/6 openai-api_key rate limit ? not activation yet ? 
+
+### app8.py#######
+
+let user upload the html code to revise 
+
+### app9.py####
+
+upload,download
+
+#### app10.py ##########
+
+add credential function (can be implement into both passive and active )
+but don't know why didn't work
+
+### app11.py ###
+
+same as above , but can work

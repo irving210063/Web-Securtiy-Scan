@@ -1,0 +1,90 @@
+env:
+  contexts:
+  - name: "simple-json"
+    urls:
+    - "https://edutalk.xtalk.tw/edutalk"
+    includePaths:
+    - "https://edutalk.xtalk.tw/edutalk.*"
+    excludePaths: []
+    authentication:
+      method: "browser"
+      parameters:
+        loginPageUrl: "https://test.iottalk2.tw/account/accounts/login/?next=/account/oauth2/v1/authorize/%3Fresponse_type%3Dcode%26client_id%3DiAJYgWP2FgagNXsvp6xmJ0hBktBUC2noqtaCJg7U%26redirect_uri%3Dhttps%253A%252F%252Fedutalk.xtalk.tw%252Fedutalk%252Faccount%252Fauth%252Fcallback%26scope%3Dopenid%26state%3DRUJSPbKUmvdyxOIFF4uCNjyg2olip6%26nonce%3DnTN0mDXRkkwmsoJEOAqC"
+        loginPageWait: 5
+        browserId: "firefox-headless"
+      verification:
+        method: "poll"
+    sessionManagement:
+      method: "autodetect"
+      parameters: {}
+    technology:
+      exclude: []
+    users:
+    - name: "test"
+      credentials:
+        username: "iottalk"
+        password: "pcs54784"
+  parameters:
+    failOnError: true
+    failOnWarning: false
+    progressToStdout: true
+  vars: {}
+jobs:
+- parameters:
+    maxAlertsPerRule: 0
+    scanOnlyInScope: true
+    maxBodySizeInBytesToScan: 0
+    enableTags: false
+    disableAllRules: true
+  rules:
+  - id: 10111
+    name: "Authentication Request Identified"
+    threshold: "medium"
+  - id: 10112
+    name: "Session Management Response Identified"
+    threshold: "medium"
+  - id: 10113
+    name: "Verification Request Identified"
+    threshold: "medium"
+  name: "passiveScan-config"
+  type: "passiveScan-config"
+- parameters:
+    user: "test"
+  requests:
+  - url: "https://edutalk.xtalk.tw/edutalk"
+    name: ""
+    method: ""
+    httpVersion: ""
+    headers: []
+    data: ""
+  name: "requestor"
+  type: "requestor"
+  tests:
+  - type: "stats"
+    statistic: "stats.auth.success"
+    site: "https://edutalk.xtalk.tw/edutalk"
+    operator: ">="
+    value: 1
+    onFail: "error"
+  - type: "stats"
+    statistic: "stats.auth.state.loggedin"
+    site: "https://edutalk.xtalk.tw/edutalk"
+    operator: ">="
+    value: 1
+    onFail: "error"
+  - type: "stats"
+    statistic: "stats.auth.sessiontoken.accesstoken"
+    site: "https://edutalk.xtalk.tw/edutalk"
+    operator: ">="
+    value: 1
+    onFail: "error"
+  - type: "stats"
+    statistic: "stats.auth.configure.session.header"
+    operator: ">="
+    value: 1
+    onFail: "error"
+  - type: "stats"
+    statistic: "stats.auth.detect.auth.json"
+    operator: ">="
+    value: 1
+    onFail: "error"

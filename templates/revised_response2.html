@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Revised Response</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      font-size: 20px;
+      padding: 0;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: left;
+      background-color: #f0f0f0;
+    }
+
+    .container {
+      width: 100%;
+      padding: 20px;
+      box-sizing: border-box;
+    }
+
+    h1 {
+      text-align: center;
+      color: #333;
+      margin: 20px 0;
+    }
+
+    .steps-container {
+      background-color: #1e1e1e;
+      color: #d4d4d4;
+      border-radius: 4px;
+      width: 100%;
+      overflow: auto;
+    }
+
+    .step-content {
+      padding: 20px;
+      font-family: 'Consolas', 'Courier New', monospace;
+      font-size: 14px;
+      line-height: 1.5;
+      white-space: pre-wrap;
+      margin: 0;
+    }
+
+    .download-container {
+      text-align: center;
+      margin-top: 30px;
+    }
+
+    /* Reset margin and padding for ul elements */
+    ul {
+      margin: 0;
+      padding: 0;
+    }
+
+    /* Add a specific style for the Monaco Editor container */
+    .monaco-container {
+      width: 100%;
+      height: 500px; /* Adjust the height as needed */
+    }
+  </style>
+  <link href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism.css" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-python.min.js"></script>
+</head>
+<body>
+  <div class="container">
+    <h1>The source code of your response might be {{realfile}}</h1>
+    <br>
+    <h1>The similarity score is {{ score }}%</h1>
+    <div class="steps-container">
+      <div class="step-content monaco-container" data-initial-content="{{ mostsimcontent }}"></div>
+    </div>
+    <h1>Revised code</h1>
+    {{before_answer}}
+    <br>
+    <div class="steps-container">
+      <div class="step-content monaco-container" data-initial-content="{{ true_answer }}"></div>
+    </div>
+    <br>
+    <br>
+    {{after_answer}}
+    <div class="download-container">
+      <h1>Link to download the revised code</h1>
+      <form action="/download" method="post">
+        <input type="submit" value="Download">
+      </form>
+    </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/monaco-editor@0.23.0/min/vs/loader.js"></script>
+  <script>
+    require.config({ paths: { 'vs': 'https://cdn.jsdelivr.net/npm/monaco-editor@0.23.0/min/vs' }});
+    require(['vs/editor/editor.main'], function() {
+      var stepContents = document.querySelectorAll('.step-content.monaco-container');
+
+      stepContents.forEach(function (element) {
+        var initialContent = element.getAttribute('data-initial-content');
+
+        var editor = monaco.editor.create(element, {
+          value: initialContent, // Initialize editor with provided content
+          language: 'python', // Change the language mode accordingly
+          theme: 'vs-dark', // You can change the theme to 'vs' for a light theme
+          wordWrap: 'on',
+          minimap: {
+            enabled: false
+          }
+        });
+
+        // Attach event listener to save edited content
+        editor.onDidChangeModelContent(function () {
+          var editedContent = editor.getValue();
+          console.log('Edited Content:', editedContent);
+        });
+      });
+    });
+  </script>
+</body>
+</html>

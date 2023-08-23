@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Security scan</title>
+    <style>
+        body {
+            background-color: #f2f2f2;
+            font-family: Arial, sans-serif;
+        }
+        form {
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0px 0px 10px #ccc;
+            margin: 50px auto;
+            max-width: 500px;
+            padding: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+        }
+        h1 {
+            text-align: center;
+            width: 100%;
+        }
+        label {
+            display: block;
+            margin-bottom: 10px;
+            width: 100%;
+        }
+        input, select {
+            border: 2px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+            margin-bottom: 20px;
+            padding: 10px;
+            width: 100%;
+        }
+        button {
+            background-color: #4CAF50;
+            border: none;
+            border-radius: 5px;
+            color: #fff;
+            cursor: pointer;
+            font-size: 16px;
+            padding: 10px;
+            width: 100%;
+        }
+        button:hover {
+            background-color: #3e8e41;
+        }
+        .category {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <form action="/runzap" method="POST" enctype="multipart/form-data"> 
+        <h1>Please Start Your Security Scan</h1>
+        <label for="address">Enter your website address:</label>
+        <input type="text" id="address" name="address" placeholder="e.g. https://www.example.com" required>
+        <label for="maxdepth">MaxDepth you want to crawl for your website:</label>
+        <input type="text" id="maxdepth" name="maxdepth"  placeholder = "default value is unlimited, and set to 0" required></input>
+        <label for="maxduration">MaxDuration you want to for Spider in minutes:</label>
+        <input type="text" id="maxduration" name="maxduration"  placeholder = "default value is unlimited, and set to 0" required></input>       
+        <label for="scantype">Select a scanning type:</label>
+        <select id="scantype" name="scantype" onchange="toggleCategory()">
+            <option value="passive">Passive Scanning</option>
+            <option value="active">Active Scanning</option>
+        </select>
+        <label for="category" id="category-label" class="category">Select a scanning policy:</label>
+        <select id="category" name="category" class="category">
+            <option value="Default Policy">Default Policy</option>
+            <option value="Cross Site Scripting (DOM based)">Cross Site Scripting (DOM based)</option>
+            <option value="Information Gathering">Information Gathering</option>
+            <option value="Injection">Injection</option>
+            <option value="Miscellaneous">Miscellaneous</option>
+        </select>
+        <button type="submit">Scan Now</button>
+    </form>
+
+    <script>
+        function toggleCategory() {
+            var select = document.getElementById("scantype");
+            var categoryLabel = document.getElementById("category-label");
+            var categorySelect = document.getElementById("category");
+
+            if (select.value === "active") {
+                categoryLabel.classList.remove("category");
+                categorySelect.classList.remove("category");
+            } else {
+                categoryLabel.classList.add("category");
+                categorySelect.classList.add("category");
+            }
+        }
+    </script>
+</body>
+</html>
+

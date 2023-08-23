@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Security scan</title>
+    <style>
+        body {
+            background-color: #f2f2f2;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            max-width: 500px;
+            margin: 50px auto;
+            padding: 20px;
+            padding-right: 20px;
+            background-color: #fff;
+            box-shadow: 0px 0px 10px #ccc;
+            border-radius: 5px;
+        }
+        h1 {
+            text-align: center;
+        }
+        label {
+            display: block;
+            margin-bottom: 10px;
+        }
+        input, select {
+            width: 96%;
+            padding: 10px;
+            font-size: 16px;
+            border: 2px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        button {
+            width: 100%;
+            background-color: #4CAF50;
+            border: none;
+            border-radius: 5px;
+            color: #fff;
+            cursor: pointer;
+            font-size: 16px;
+            padding: 10px;
+        }
+        button:hover {
+            background-color: #3e8e41;
+        }
+        .upload-options {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .upload-options label {
+            display: inline-block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        .upload-options input[type="file"] {
+            display: none;
+        }
+        .upload-options .upload-button {
+            background-color: #4CAF50;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+        .upload-options .upload-button:hover {
+            background-color: #3e8e41;
+        }
+        .category {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Please Start Your Security Scan</h1>
+        <form action="/runzap" method="POST" enctype="multipart/form-data">
+            <label for="address">Enter your website address:</label>
+            <input type="text" id="address" name="address" placeholder="e.g. https://www.example.com" required>
+            <label for="maxdepth">MaxDepth for crawling website:</label>
+            <input type="text" id="maxdepth" name="maxdepth" placeholder="default value is unlimited, and set to 0" required>
+            <label for="maxduration">MaxDuration for Spider in minutes:</label>
+            <input type="text" id="maxduration" name="maxduration" placeholder="default value is unlimited, and set to 0" required>
+            <label for="scantype">Select a scanning type:</label>
+            <select id="scantype" name="scantype" onchange="toggleCategory()">
+                <option value="passive">Passive Scanning</option>
+                <option value="active">Active Scanning</option>
+            </select>
+            <label for="category" id="category-label" class="category">Select a scanning policy:</label>
+            <select id="category" name="category" class="category">
+                <option value="Default Policy">Default Policy</option>
+                <option value="Cross Site Scripting (DOM based)">Cross Site Scripting (DOM based)</option>
+                <option value="Information Gathering">Information Gathering</option>
+                <option value="Injection">Injection</option>
+                <option value="Miscellaneous">Miscellaneous</option>
+            </select>
+            <label for="folder">You can upload your source code folder here:</label>
+            <input type="file" name="folder" id="folder" webkitdirectory directory multiple>
+            <button type="submit">Scan Now</button>
+        </form>
+    </div>
+
+    <script>
+        function toggleCategory() {
+            var select = document.getElementById("scantype");
+            var categoryLabel = document.getElementById("category-label");
+            var categorySelect = document.getElementById("category");
+
+            if (select.value === "active") {
+                categoryLabel.classList.remove("category");
+                categorySelect.classList.remove("category");
+            } else {
+                categoryLabel.classList.add("category");
+                categorySelect.classList.add("category");
+            }
+        }
+
+        document.querySelector('.upload-button').addEventListener('click', function() {
+            document.getElementById('folder').click();
+        });
+    </script>
+</body>
+</html>
